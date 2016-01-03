@@ -1,0 +1,43 @@
+ubuntu 安装 libpcap 
+
+最近有个活儿，通过网络包来反映应用状况，提供预测信息。
+首先需要网络抓包，实现类似于wireshark的功能，通过查找资料，找到了一些开源项目snort等。其中用到 libpcap 库来实现抓包或者网络嗅探的功能。linux下是libpcap，对应windows版本是winpcap。
+
+简单的介绍一下基本原理　－－　网卡的旁路功能，每当网卡收到一个网络包，回发送到一个旁路上，通过pcap来实现抓包再进行分析。
+
+这里先解决在ubuntu下安装libpcap的问题。
+
+
+首先安装这些依赖包命令如下
+sudo apt-get install bison flex m4
+
+然后　从tcpdump官网上下载 libpcap　源码　
+http://www.tcpdump.org/
+
+解压后
+在libpcap 目录下, 一次执行
+./configure --prefix=/usr
+make
+sudo make install
+
+这样装好后默认的头文件在/usr/include/pcap下
+
+然后使用gcc -Wall -o sniffex sniffex.c -lpcap发现可以通过了！
+
+
+注：
+我在安装时出现一些libpcap.so库的链接问题。
+
+所以　可以使用
+ sudo apt-get install libpcap-dev 
+来实现安装。　
+
+
+
+
+
+
+
+
+
+
